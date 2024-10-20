@@ -526,7 +526,7 @@ TEST(TDynamicMatrix, cant_multiplying_matrix_by_vector_with_not_correct_size) {
 	matrix[2] = v_2;
 
 	ASSERT_ANY_THROW(matrix * vector);
-}/*
+}
 TEST(TDynamicMatrix, can_multiplying_matrix_by_matrix_with_correct_size) {
 
 	TDynamicMatrix<int> matrix(3);
@@ -586,7 +586,7 @@ TEST(TDynamicMatrix, can_multiplying_matrix_by_matrix_with_correct_size) {
 TEST(TDynamicMatrix, can_multiplying_matrix_by_matrix_with_not_correct_size) {
 
 	TDynamicMatrix<int> matrix(3);
-	TDynamicMatrix<int> matrix_multi(3);
+	TDynamicMatrix<int> matrix_multi(2);
 
 	int* pMem_0 = new int [3] { 5, 1, 5};
 	int* pMem_1 = new int [3] { 6, 1, 9};
@@ -594,7 +594,6 @@ TEST(TDynamicMatrix, can_multiplying_matrix_by_matrix_with_not_correct_size) {
 
 	int* pMem_multi_0 = new int [2] { 1, 1};
 	int* pMem_multi_1 = new int [2] { 1, 2};
-	int* pMem_multi_2 = new int [2] { 2, 1};
 
 	TDynamicVector<int> v_0(pMem_0, 3);
 	TDynamicVector<int> v_1(pMem_1, 3);
@@ -602,15 +601,13 @@ TEST(TDynamicMatrix, can_multiplying_matrix_by_matrix_with_not_correct_size) {
 
 	TDynamicVector<int> v_multi_0(pMem_multi_0, 2);
 	TDynamicVector<int> v_multi_1(pMem_multi_1, 2);
-	TDynamicVector<int> v_multi_2(pMem_multi_2, 2);
 
 	delete[] pMem_0;
 	delete[] pMem_1;
 	delete[] pMem_2;
 
 	delete[] pMem_multi_0;
-	delete[] pMem_multi_1;
-	delete[] pMem_multi_2;
+	delete[] pMem_multi_1;2;
 
 	matrix[0] = v_0;
 	matrix[1] = v_1;
@@ -618,8 +615,6 @@ TEST(TDynamicMatrix, can_multiplying_matrix_by_matrix_with_not_correct_size) {
 
 	matrix_multi[0] = v_multi_0;
 	matrix_multi[1] = v_multi_1;
-	matrix_multi[2] = v_multi_2;
 
 	ASSERT_ANY_THROW(matrix * matrix_multi);
 }
-*/

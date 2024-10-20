@@ -242,14 +242,17 @@ public:
       return Temp;
   }
   TDynamicMatrix operator*(const TDynamicMatrix& m) {
-      if (sz != m.sz) throw ("incorrect_matrix_size");
+      if (sz != m.size()) throw ("incorrect_matrix_size");
       else {
-          TDynamicMatrix<T> Temp(sz);
+          TDynamicMatrix<T> result(sz);
+          TDynamicVector<T> Temp(pMem[0].size());
           for (size_t i = 0; i < sz; i++)
-              for (size_t j = 0; j < sz; j++)
-                  for (size_t k = 0; k < m.sz; k++)
-                      Temp[i][j] = pMem[i][k] * m.pMem[k][j];
-          return Temp;
+              for (size_t j = 0; j < pMem[0].size(); j++) {
+                  for (size_t k = 0; k < pMem[0].size(); k++)
+                      Temp[k] = m.pMem[k][j];
+                  result[i][j] += pMem[i] * Temp;
+              }
+          return result;
       }
   }
 
