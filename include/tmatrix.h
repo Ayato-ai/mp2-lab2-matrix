@@ -78,10 +78,10 @@ public:
     size_t size() const noexcept { return sz; }
 
     // индексация
-    T& operator[](size_t ind) noexcept {
+    T& operator[](size_t ind) {
         return pMem[ind];
     }
-    const T& operator[](size_t ind) const noexcept {
+    const T& operator[](size_t ind) const {
         return pMem[ind];
     }
     // индексация с контролем
@@ -250,7 +250,7 @@ public:
               for (size_t j = 0; j < pMem[0].size(); j++) {
                   for (size_t k = 0; k < pMem[0].size(); k++)
                       Temp[k] = m.pMem[k][j];
-                  result[i][j] += pMem[i] * Temp;
+                  result[i][j] += (pMem[i] * Temp);
               }
           return result;
       }

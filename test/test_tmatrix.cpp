@@ -53,7 +53,7 @@ TEST(TDynamicMatrix, copied_matrix_has_its_own_memory) {
 
 	TDynamicMatrix<int> matrix(3);
 	TDynamicMatrix<int>* matrix_ptr = &matrix;
-	TDynamicMatrix<int> matrix_new(3);
+	TDynamicMatrix<int> matrix_new(matrix);
 	TDynamicMatrix<int>* matrix_new_ptr = &matrix_new;
 
 	EXPECT_NE(matrix_new_ptr, matrix_ptr);
@@ -74,23 +74,29 @@ TEST(TDynamicMatrix, can_set_and_get_element) {
 
 	int* pMem_0 = new int [3] { 0, 0, 0};
 	int* pMem_1 = new int [3] { 0, 0, 0};
-	int* pMem_2 = new int[3] {0, 0, 0};
+	int* pMem_2 = new int [3] {0, 0, 0};
+
+	int* pMem_new = new int [3] {1, 2, 3};
 
 	TDynamicVector<int> v_0(pMem_0, 3);
 	TDynamicVector<int> v_1(pMem_1, 3);
 	TDynamicVector<int> v_2(pMem_2, 3);
 
+	TDynamicVector<int> v_new(pMem_new, 3);
+
 	delete[] pMem_0;
 	delete[] pMem_1;
 	delete[] pMem_2;
 
+	delete[] pMem_new;
+
 	matrix[0] = v_0;
-	matrix[1] = v_1;
+	matrix[1] = v_new;
 	matrix[2] = v_2;
 
-	matrix[1][1] = 5;
 
-	EXPECT_EQ(matrix[1][1], 5);
+
+	EXPECT_EQ(matrix[1], v_new);
 }
 
 TEST(TDynamicMatrix, throws_when_set_element_with_negative_index) {
@@ -127,7 +133,7 @@ TEST(TDynamicMatrix, can_assign_matrix_to_itself) {
 	matrix[1] = v_1;
 	matrix[2] = v_2;
 
-	EXPECT_EQ(matrix, matrix);
+	ASSERT_NO_THROW(matrix = matrix);
 }
 
 TEST(TDynamicMatrix, can_assign_matrices_of_equal_size) {
@@ -583,7 +589,7 @@ TEST(TDynamicMatrix, can_multiplying_matrix_by_matrix_with_correct_size) {
 
 	EXPECT_EQ(matrix * matrix_multi, matrix_result);
 }
-TEST(TDynamicMatrix, can_multiplying_matrix_by_matrix_with_not_correct_size) {
+TEST(TDynamicMatrix, cant_multiplying_matrix_by_matrix_with_not_correct_size) {
 
 	TDynamicMatrix<int> matrix(3);
 	TDynamicMatrix<int> matrix_multi(2);

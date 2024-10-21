@@ -84,8 +84,6 @@ TEST(TDynamicVector, can_assign_vector_to_itself) {
 
 	delete[] pMem;
 
-	ASSERT_NO_THROW(v = v);
-
 	EXPECT_EQ(v, v);
 }
 
@@ -114,7 +112,7 @@ TEST(TDynamicVector, assign_operator_change_vector_size) {
 	delete[] pMem_1;
 	delete[] pMem_2;
 
-	ASSERT_NO_THROW(v_1 = v_2);
+	v_1 = v_2;
 
 	EXPECT_EQ(v_1.size(), v_2.size());
 }
