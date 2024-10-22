@@ -84,6 +84,8 @@ TEST(TDynamicVector, can_assign_vector_to_itself) {
 
 	delete[] pMem;
 
+	v = v;
+
 	EXPECT_EQ(v, v);
 }
 
