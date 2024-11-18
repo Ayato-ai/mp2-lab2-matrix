@@ -208,15 +208,15 @@ public:
   }
 
   // матрично-скалярные операции
-  TDynamicMatrix operator*(const T& val) {
-      TDynamicMatrix Temp(sz);
+  TDynamicMatrix operator*(const T val) {
+      TDynamicMatrix<T> Temp(sz);
       for (size_t i = 0; i < sz; i++)
           Temp.pMem[i] = pMem[i] * val;
       return Temp;
   }
 
   // матрично-векторные операции
-  TDynamicVector<T> operator*(const TDynamicVector<T>& v) {
+  TDynamicVector<T> operator*(const TDynamicVector<T> v) {
       if (pMem[0].size() != v.size()) throw ("incorrect_vector_size");
       else {
           TDynamicVector<T> Temp(sz);
